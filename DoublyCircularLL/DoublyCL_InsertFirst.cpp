@@ -1,0 +1,94 @@
+/*
+  Function to Insert At First Position in LinkedList
+*/
+#include<iostream>
+using namespace std;
+#pragma pack(2)
+
+struct Node
+{
+  struct Node * Prev;
+  int Data;
+  struct Node * Next;
+};
+
+typedef struct Node NODE;
+typedef struct Node * PNODE;
+typedef struct Node ** PPNODE;
+
+class DoublyCL              //Class Declaration
+{
+  public:
+    PNODE First ;
+    PNODE Last;
+    
+    DoublyCL();
+    
+    void InsertFirst(int iNo);
+    void InsertLast(int iNo);
+    void InsertAtPos(int iNo , int iPos);
+    
+    void DeleteFirst();
+    void DeleteLast();
+    void DeleteAtPos(int iPos);
+    
+    void Display();
+    int Count();
+};
+
+DoublyCL :: DoublyCL()  //Constructor
+{
+  First = NULL;
+  Last = NULL;
+}
+
+void DoublyCL :: InsertFirst(int iNo)  //InsertFirst Function
+{
+  PNODE Newn = new NODE;
+  
+  Newn->Prev = NULL;
+  Newn->Data = iNo;
+  Newn->Next = NULL;
+  
+  if((First == NULL) && (Last == NULL))
+  {
+     First = Newn;
+     Last = Newn;
+     Last->Next = First;
+     First->Prev = Last;
+  }
+  else
+  {
+     Newn->Next = First;
+     First->Prev = Newn;
+     First = Newn;
+     Last->Next = First;
+     First->Prev = Last;
+  }
+}
+
+void DoublyCL :: Display()   //Function to Display LinkedList
+{
+  cout<<"Elements in LinkedList are : "<<"\n";
+  
+  do
+  {
+    cout<<"| "<<First->Data<<" |<=>";
+    First = First->Next;
+  }
+  while(First != Last->Next);
+  cout<<"\n";
+}
+
+int main()
+{
+  DoublyCL * obj = new DoublyCL();
+  
+  obj->InsertFirst(51);
+  obj->InsertFirst(21);
+  obj->InsertFirst(11);
+  obj->InsertFirst(5);
+  obj->Display();
+    
+  return 0;
+}
